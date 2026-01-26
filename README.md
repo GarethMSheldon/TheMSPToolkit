@@ -5,7 +5,7 @@
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)
 
-**Version:** 3.1.1 (FIXED) — January 23, 2026  
+**Version:** 3.1.3 (FIXED) — January 26, 2026  
 **Author:** Gareth Sheldon
 
 A comprehensive Windows troubleshooting toolkit built for MSP technicians, IT professionals, and help desk teams. This PowerShell-based GUI application provides one-click access to the most common diagnostic and repair operations encountered in enterprise support environments. The current release includes 60+ functions and auto-elevates to administrator on launch.
