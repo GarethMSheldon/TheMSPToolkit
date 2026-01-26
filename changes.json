@@ -1,0 +1,884 @@
+﻿[
+    {
+        "version": "3.1.3",
+        "codename": "FIXED",
+        "releaseDate": "2026-01-26",
+        "status": "active",
+        "supportEndDate": null,
+        "breaking": false,
+        "changes": {
+            "added": [
+                {
+                    "id": "ADD-040",
+                    "title": "Thread-safe external process tracking",
+                    "description": "Centralized external command invocation with Add-ExternalProcess / Remove-ExternalProcess helpers using monitor-based locking",
+                    "category": "stability",
+                    "severity": "major",
+                    "issueUrl": null
+                },
+                {
+                    "id": "ADD-041",
+                    "title": "Background worker lifecycle management",
+                    "description": "Monitor-protected registries with Add-BackgroundWorker / Remove-BackgroundWorker helpers for safe task tracking",
+                    "category": "stability",
+                    "severity": "major",
+                    "issueUrl": null
+                },
+                {
+                    "id": "ADD-042",
+                    "title": "Safe shutdown handler",
+                    "description": "FormClosing now snapshots workers and processes under locks, cancels background tasks, kills orphaned processes, disposes UI controls, and forces GC",
+                    "category": "stability",
+                    "severity": "major",
+                    "issueUrl": null
+                },
+                {
+                    "id": "ADD-043",
+                    "title": "Thread-safe logging with UI marshaling",
+                    "description": "Write-ToolkitLog (alias Log) ensures safe UI updates with InvokeRequired fallback and console fallback",
+                    "category": "stability",
+                    "severity": "minor",
+                    "issueUrl": null
+                },
+                {
+                    "id": "ADD-044",
+                    "title": "Restored printer troubleshooting functions",
+                    "description": "Reintroduced Show-PrinterInventory and implemented Remove-GhostPrinters for offline/non-default printer removal",
+                    "category": "printers",
+                    "severity": "major",
+                    "issueUrl": null
+                }
+            ],
+            "fixed": [
+                {
+                    "id": "FIX-021",
+                    "title": "Section numbering conflict",
+                    "description": "LOG MANAGEMENT renumbered from Section 5 to Section 10 to avoid overlap with DISK AND STORAGE HEALTH",
+                    "category": "ui",
+                    "severity": "minor",
+                    "issueUrl": null
+                },
+                {
+                    "id": "FIX-022",
+                    "title": "Hardcoded button container height",
+                    "description": "Replaced fixed height (5500) with dynamic sizing based on $yPosition after all controls are added",
+                    "category": "ui",
+                    "severity": "minor",
+                    "issueUrl": null
+                },
+                {
+                    "id": "FIX-023",
+                    "title": "UI freezing during profile operations",
+                    "description": "Moved Teams cache clear, Outlook profile reset, and OneDrive sync fix to background tasks",
+                    "category": "performance",
+                    "severity": "major",
+                    "issueUrl": null
+                },
+                {
+                    "id": "FIX-024",
+                    "title": "Event handler parameter clarity",
+                    "description": "Standardized event handler parameter names to avoid automatic-variable assignment issues ($sender → $frmSender, etc.)",
+                    "category": "code-quality",
+                    "severity": "minor",
+                    "issueUrl": null
+                },
+                {
+                    "id": "FIX-025",
+                    "title": "Progress bar null reference errors",
+                    "description": "Added guarding to avoid null reference errors when accessing progress bar",
+                    "category": "stability",
+                    "severity": "minor",
+                    "issueUrl": null
+                }
+            ],
+            "changed": [
+                {
+                    "id": "CHG-008",
+                    "title": "Hardened Start-BackgroundTask",
+                    "description": "Added validation, safe event wiring, start-then-register semantics, and Register-ObjectEvent fallback",
+                    "category": "stability",
+                    "severity": "major",
+                    "breaking": false
+                },
+                {
+                    "id": "CHG-009",
+                    "title": "Long-running operations moved to background",
+                    "description": "Battery Report, CHKDSK, and other heavy tasks now run in background workers",
+                    "category": "performance",
+                    "severity": "major",
+                    "breaking": false
+                }
+            ]
+        },
+        "technicalDetails": {
+            "framework": "PowerShell Windows Forms",
+            "requiresAdmin": true,
+            "compatibility": [
+                "Windows 10",
+                "Windows 11",
+                "Server 2016+"
+            ],
+            "license": "MIT"
+        },
+        "stats": {
+            "totalFunctions": 60,
+            "linesOfCode": null,
+            "downloads": null
+        },
+        "notes": "Parser validation completed: PARSE_OK. Remaining PSScriptAnalyzer style suggestions are recommended follow-ups."
+    },
+    {
+        "version": "3.1.2",
+        "codename": "Thread Safety",
+        "releaseDate": "2026-01-23",
+        "status": "maintenance",
+        "supportEndDate": "2027-01-23",
+        "breaking": false,
+        "changes": {
+            "added": [
+                {
+                    "id": "ADD-045",
+                    "title": "Thread-safe logging system",
+                    "description": "Full thread-safe logging with color-coded status (PASS/WARN/FAIL) and console fallback",
+                    "category": "stability",
+                    "severity": "major",
+                    "issueUrl": null
+                },
+                {
+                    "id": "ADD-046",
+                    "title": "Background task engine",
+                    "description": "System.ComponentModel.BackgroundWorker with lifecycle tracking for all long-running operations",
+                    "category": "performance",
+                    "severity": "major",
+                    "issueUrl": null
+                },
+                {
+                    "id": "ADD-047",
+                    "title": "Safe external process execution",
+                    "description": "Invoke-ExternalCommand captures exit code, stdout/stderr with automatic cleanup",
+                    "category": "stability",
+                    "severity": "major",
+                    "issueUrl": null
+                },
+                {
+                    "id": "ADD-048",
+                    "title": "DPI awareness",
+                    "description": "High-resolution display support for better visual clarity",
+                    "category": "ui",
+                    "severity": "minor",
+                    "issueUrl": null
+                },
+                {
+                    "id": "ADD-049",
+                    "title": "Auto-elevation to Administrator",
+                    "description": "Automatic elevation with preserved script path on startup",
+                    "category": "usability",
+                    "severity": "major",
+                    "issueUrl": null
+                },
+                {
+                    "id": "ADD-050",
+                    "title": "Form closing handler",
+                    "description": "Graceful shutdown that cancels background tasks and kills orphaned processes",
+                    "category": "stability",
+                    "severity": "major",
+                    "issueUrl": null
+                },
+                {
+                    "id": "ADD-051",
+                    "title": "Confirmation prompts",
+                    "description": "Destructive actions now require user confirmation (e.g., Outlook reset)",
+                    "category": "usability",
+                    "severity": "minor",
+                    "issueUrl": null
+                },
+                {
+                    "id": "ADD-052",
+                    "title": "Status bar",
+                    "description": "Shows PC name, user, domain, and admin status at bottom of window",
+                    "category": "ui",
+                    "severity": "minor",
+                    "issueUrl": null
+                }
+            ],
+            "enhanced": [
+                {
+                    "id": "ENH-008",
+                    "title": "Background operation support",
+                    "description": "All long-running operations (SFC, DISM, CHKDSK, Battery Report) run in background",
+                    "category": "performance",
+                    "severity": "major"
+                },
+                {
+                    "id": "ENH-009",
+                    "title": "Robust error handling",
+                    "description": "Enhanced error handling in every diagnostic function with detailed reporting",
+                    "category": "stability",
+                    "severity": "major"
+                },
+                {
+                    "id": "ENH-010",
+                    "title": "Modern dark-themed UI",
+                    "description": "Dark theme with hover effects and consistent styling throughout",
+                    "category": "ui",
+                    "severity": "minor"
+                },
+                {
+                    "id": "ENH-011",
+                    "title": "Improved tooltips",
+                    "description": "8-second auto-pop delay for better usability and reduced annoyance",
+                    "category": "usability",
+                    "severity": "minor"
+                }
+            ]
+        },
+        "technicalDetails": {
+            "framework": "PowerShell Windows Forms",
+            "requiresAdmin": true,
+            "compatibility": [
+                "Windows 10",
+                "Windows 11",
+                "Server 2016+"
+            ],
+            "license": "MIT"
+        },
+        "stats": {
+            "totalFunctions": 60,
+            "linesOfCode": 8700,
+            "downloads": null
+        },
+        "notes": "Modular architecture with reusable functions (New-ToolkitButton, Show-Confirmation, etc.). Fallback event registration using Register-ObjectEvent for compatibility."
+    },
+    {
+        "version": "3.1.1",
+        "codename": "FIXED",
+        "releaseDate": "2026-01-19",
+        "status": "active",
+        "supportEndDate": null,
+        "breaking": false,
+        "changes": {
+            "fixed": [
+                {
+                    "id": "FIX-001",
+                    "title": "Corrected README.md duplicate paragraphs",
+                    "description": "Removed three duplicate introduction paragraphs from documentation",
+                    "category": "documentation",
+                    "severity": "minor",
+                    "issueUrl": null
+                },
+                {
+                    "id": "FIX-002",
+                    "title": "Fixed Windows version compatibility documentation",
+                    "description": "Updated official support to Windows 10/11, removed Windows 7 references",
+                    "category": "documentation",
+                    "severity": "minor",
+                    "issueUrl": null
+                },
+                {
+                    "id": "FIX-003",
+                    "title": "Updated screenshot placeholder",
+                    "description": "Replaced placeholder image with proper relative path reference",
+                    "category": "documentation",
+                    "severity": "trivial",
+                    "issueUrl": null
+                },
+                {
+                    "id": "FIX-004",
+                    "title": "PowerShell version recommendation clarity",
+                    "description": "Added explicit '5.1+ recommended' note to requirements",
+                    "category": "documentation",
+                    "severity": "trivial",
+                    "issueUrl": null
+                }
+            ],
+            "changed": [
+                {
+                    "id": "CHG-001",
+                    "title": "Updated server compatibility range",
+                    "description": "Changed from 'Windows Server 2022' to 'Server 2016+' for broader support",
+                    "category": "compatibility",
+                    "severity": "minor",
+                    "breaking": false
+                },
+                {
+                    "id": "CHG-002",
+                    "title": "Improved FAQ section",
+                    "description": "Added clearer Windows 8.1 compatibility notes with PowerShell requirements",
+                    "category": "documentation",
+                    "severity": "trivial",
+                    "breaking": false
+                }
+            ]
+        },
+        "stats": {
+            "totalFunctions": 60,
+            "linesOfCode": null,
+            "downloads": null
+        }
+    },
+    {
+        "version": "3.1.0",
+        "codename": "Network Expansion",
+        "releaseDate": "2026-01-15",
+        "status": "maintenance",
+        "supportEndDate": "2027-01-15",
+        "breaking": false,
+        "changes": {
+            "added": [
+                {
+                    "id": "ADD-001",
+                    "title": "Network Traffic Monitor",
+                    "description": "Real-time bandwidth consumption tracking by process with detailed statistics",
+                    "category": "networking",
+                    "severity": "major",
+                    "issueUrl": null
+                },
+                {
+                    "id": "ADD-002",
+                    "title": "WiFi Password Recovery",
+                    "description": "Extract and display saved wireless network credentials from Windows",
+                    "category": "networking",
+                    "severity": "major",
+                    "issueUrl": null
+                },
+                {
+                    "id": "ADD-003",
+                    "title": "Battery Health Report",
+                    "description": "Generates detailed battery degradation analysis for laptop systems",
+                    "category": "diagnostics",
+                    "severity": "major",
+                    "issueUrl": null
+                },
+                {
+                    "id": "ADD-004",
+                    "title": "Last Logon Tracker",
+                    "description": "Displays last user login time and username from system logs",
+                    "category": "security",
+                    "severity": "minor",
+                    "issueUrl": null
+                },
+                {
+                    "id": "ADD-005",
+                    "title": "Complete System Dashboard",
+                    "description": "One-click comprehensive overview of computer name, domain, OS, hardware specs, and uptime",
+                    "category": "diagnostics",
+                    "severity": "major",
+                    "issueUrl": null
+                },
+                {
+                    "id": "ADD-006",
+                    "title": "Auto-elevation on launch",
+                    "description": "Application automatically requests administrator privileges on startup",
+                    "category": "usability",
+                    "severity": "major",
+                    "issueUrl": null
+                },
+                {
+                    "id": "ADD-007",
+                    "title": "Dark-themed GUI",
+                    "description": "New dark color scheme to reduce eye strain during extended troubleshooting sessions",
+                    "category": "ui",
+                    "severity": "minor",
+                    "issueUrl": null
+                }
+            ],
+            "enhanced": [
+                {
+                    "id": "ENH-001",
+                    "title": "Improved error handling",
+                    "description": "Enhanced try-catch blocks across all 60+ functions with detailed error reporting",
+                    "category": "stability",
+                    "severity": "major"
+                },
+                {
+                    "id": "ENH-002",
+                    "title": "Comprehensive tooltips",
+                    "description": "Added detailed hover tooltips for all buttons explaining functionality",
+                    "category": "usability",
+                    "severity": "minor"
+                },
+                {
+                    "id": "ENH-003",
+                    "title": "Enhanced progress indicators",
+                    "description": "Improved visual feedback for long-running operations (SFC, CHKDSK, file scans)",
+                    "category": "ui",
+                    "severity": "minor"
+                },
+                {
+                    "id": "ENH-004",
+                    "title": "Color-coded logging system",
+                    "description": "Implemented PASS (green), FAIL (red), WARN (yellow), INFO (white) logging categories",
+                    "category": "usability",
+                    "severity": "minor"
+                }
+            ],
+            "fixed": [
+                {
+                    "id": "FIX-005",
+                    "title": "Memory leak in monitoring operations",
+                    "description": "Resolved memory leak affecting continuous monitoring features",
+                    "category": "performance",
+                    "severity": "critical",
+                    "issueUrl": null
+                },
+                {
+                    "id": "FIX-006",
+                    "title": "UI freezing during CHKDSK",
+                    "description": "Fixed application UI becoming unresponsive during disk check operations",
+                    "category": "stability",
+                    "severity": "major",
+                    "issueUrl": null
+                },
+                {
+                    "id": "FIX-007",
+                    "title": "Azure AD domain detection",
+                    "description": "Corrected domain detection logic for Azure AD-joined machines",
+                    "category": "compatibility",
+                    "severity": "major",
+                    "issueUrl": null
+                }
+            ]
+        },
+        "stats": {
+            "totalFunctions": 60,
+            "linesOfCode": 8500,
+            "downloads": null
+        }
+    },
+    {
+        "version": "3.0.2",
+        "codename": "Compatibility Patch",
+        "releaseDate": "2025-12-10",
+        "status": "maintenance",
+        "supportEndDate": "2026-07-01",
+        "breaking": false,
+        "changes": {
+            "fixed": [
+                {
+                    "id": "FIX-008",
+                    "title": "Print spooler detection on Windows 11 24H2",
+                    "description": "Fixed service detection compatibility with latest Windows 11 update",
+                    "category": "compatibility",
+                    "severity": "major",
+                    "issueUrl": null
+                },
+                {
+                    "id": "FIX-009",
+                    "title": "OneDrive for Business sync reset",
+                    "description": "Corrected sync reset process for OneDrive for Business accounts",
+                    "category": "m365",
+                    "severity": "major",
+                    "issueUrl": null
+                },
+                {
+                    "id": "FIX-010",
+                    "title": "Network stack reset connectivity loss",
+                    "description": "Prevented temporary connectivity loss during network stack reset operations",
+                    "category": "networking",
+                    "severity": "major",
+                    "issueUrl": null
+                },
+                {
+                    "id": "FIX-011",
+                    "title": "SMART status NVMe false positives",
+                    "description": "Eliminated false positive health warnings on NVMe drives",
+                    "category": "diagnostics",
+                    "severity": "major",
+                    "issueUrl": null
+                }
+            ],
+            "changed": [
+                {
+                    "id": "CHG-003",
+                    "title": "Teams cache cleaning preservation",
+                    "description": "Updated cache cleaning to preserve user settings and preferences",
+                    "category": "m365",
+                    "severity": "minor",
+                    "breaking": false
+                },
+                {
+                    "id": "CHG-004",
+                    "title": "Outlook 2024 support",
+                    "description": "Updated profile repair tool to support Outlook 2024",
+                    "category": "m365",
+                    "severity": "major",
+                    "breaking": false
+                }
+            ]
+        },
+        "stats": {
+            "totalFunctions": 58,
+            "linesOfCode": 8200,
+            "downloads": null
+        }
+    },
+    {
+        "version": "3.0.1",
+        "codename": "Diagnostics Enhancement",
+        "releaseDate": "2025-11-22",
+        "status": "end-of-life",
+        "supportEndDate": "2026-07-01",
+        "breaking": false,
+        "changes": {
+            "added": [
+                {
+                    "id": "ADD-008",
+                    "title": "Custom size threshold for file finder",
+                    "description": "Large file finder now supports user-defined size thresholds",
+                    "category": "storage",
+                    "severity": "minor",
+                    "issueUrl": null
+                },
+                {
+                    "id": "ADD-009",
+                    "title": "Disk Health Dashboard",
+                    "description": "New physical disk monitoring dashboard with SMART data visualization",
+                    "category": "diagnostics",
+                    "severity": "major",
+                    "issueUrl": null
+                },
+                {
+                    "id": "ADD-010",
+                    "title": "Blue Screen Detection",
+                    "description": "Automated event log scanning for recent BSOD errors with detailed reporting",
+                    "category": "diagnostics",
+                    "severity": "major",
+                    "issueUrl": null
+                }
+            ],
+            "fixed": [
+                {
+                    "id": "FIX-012",
+                    "title": "Incomplete temp file cleanup",
+                    "description": "Resolved issue where some temporary files were not being removed",
+                    "category": "storage",
+                    "severity": "minor",
+                    "issueUrl": null
+                },
+                {
+                    "id": "FIX-013",
+                    "title": "Update history incorrect dates",
+                    "description": "Fixed date parsing in Windows Update history viewer",
+                    "category": "updates",
+                    "severity": "minor",
+                    "issueUrl": null
+                },
+                {
+                    "id": "FIX-014",
+                    "title": "Domain connection test timeout",
+                    "description": "Increased timeout threshold for domain controller connectivity tests",
+                    "category": "domain",
+                    "severity": "minor",
+                    "issueUrl": null
+                }
+            ],
+            "security": [
+                {
+                    "id": "SEC-001",
+                    "title": "Enhanced credential handling",
+                    "description": "Improved credential management for mapped drive diagnostics",
+                    "category": "security",
+                    "severity": "major",
+                    "cveId": null
+                },
+                {
+                    "id": "SEC-002",
+                    "title": "Improved UAC prompt handling",
+                    "description": "More secure elevation request process with better error handling",
+                    "category": "security",
+                    "severity": "minor",
+                    "cveId": null
+                }
+            ]
+        },
+        "stats": {
+            "totalFunctions": 55,
+            "linesOfCode": 7800,
+            "downloads": null
+        }
+    },
+    {
+        "version": "3.0.0",
+        "codename": "Major Release",
+        "releaseDate": "2025-10-05",
+        "status": "end-of-life",
+        "supportEndDate": "2026-07-01",
+        "breaking": true,
+        "changes": {
+            "added": [
+                {
+                    "id": "ADD-011",
+                    "title": "60+ diagnostic and repair functions",
+                    "description": "Massive expansion of available troubleshooting tools",
+                    "category": "features",
+                    "severity": "major",
+                    "issueUrl": null
+                },
+                {
+                    "id": "ADD-012",
+                    "title": "GUI-based interface",
+                    "description": "Complete graphical interface replacing command-line version",
+                    "category": "ui",
+                    "severity": "major",
+                    "issueUrl": null
+                },
+                {
+                    "id": "ADD-013",
+                    "title": "Progress bar tracking",
+                    "description": "Visual progress indicators for long-running operations",
+                    "category": "ui",
+                    "severity": "minor",
+                    "issueUrl": null
+                },
+                {
+                    "id": "ADD-014",
+                    "title": "Log export functionality",
+                    "description": "Save timestamped troubleshooting reports to desktop",
+                    "category": "features",
+                    "severity": "major",
+                    "issueUrl": null
+                },
+                {
+                    "id": "ADD-015",
+                    "title": "M365 integration tools",
+                    "description": "Teams, Outlook, and OneDrive troubleshooting suite",
+                    "category": "m365",
+                    "severity": "major",
+                    "issueUrl": null
+                },
+                {
+                    "id": "ADD-016",
+                    "title": "Printer troubleshooting suite",
+                    "description": "Comprehensive printer diagnostics and repair tools",
+                    "category": "printers",
+                    "severity": "major",
+                    "issueUrl": null
+                },
+                {
+                    "id": "ADD-017",
+                    "title": "Advanced networking diagnostics",
+                    "description": "Network stack analysis and repair capabilities",
+                    "category": "networking",
+                    "severity": "major",
+                    "issueUrl": null
+                },
+                {
+                    "id": "ADD-018",
+                    "title": "Windows Update repair toolkit",
+                    "description": "Component reset and update troubleshooting tools",
+                    "category": "updates",
+                    "severity": "major",
+                    "issueUrl": null
+                }
+            ],
+            "changed": [
+                {
+                    "id": "CHG-005",
+                    "title": "Complete UI redesign",
+                    "description": "Categorized tool sections with improved navigation",
+                    "category": "ui",
+                    "severity": "major",
+                    "breaking": false
+                },
+                {
+                    "id": "CHG-006",
+                    "title": "Unified PowerShell GUI",
+                    "description": "Migrated from standalone scripts to single unified application",
+                    "category": "architecture",
+                    "severity": "major",
+                    "breaking": true
+                },
+                {
+                    "id": "CHG-007",
+                    "title": "Performance improvements",
+                    "description": "Optimized execution across all operations",
+                    "category": "performance",
+                    "severity": "major",
+                    "breaking": false
+                }
+            ],
+            "removed": [
+                {
+                    "id": "REM-001",
+                    "title": "Command-line only mode",
+                    "description": "Removed CLI mode in favor of GUI",
+                    "category": "features",
+                    "severity": "major",
+                    "breaking": true,
+                    "reason": "Replaced by GUI interface"
+                },
+                {
+                    "id": "REM-002",
+                    "title": "Windows 7 support",
+                    "description": "Deprecated legacy Windows 7 compatibility",
+                    "category": "compatibility",
+                    "severity": "major",
+                    "breaking": true,
+                    "reason": "End of extended support"
+                }
+            ],
+            "breaking": [
+                {
+                    "id": "BRK-001",
+                    "title": "PowerShell 3.0+ required",
+                    "description": "Minimum version increased from 2.0 to 3.0",
+                    "migrationGuide": "Upgrade PowerShell to version 3.0 or higher",
+                    "affectedUsers": "Users on Windows 7 without updates"
+                }
+            ]
+        },
+        "technicalDetails": {
+            "framework": "PowerShell Windows Forms",
+            "requiresAdmin": true,
+            "compatibility": [
+                "Windows 10",
+                "Windows 11"
+            ],
+            "license": "MIT"
+        },
+        "stats": {
+            "totalFunctions": 52,
+            "linesOfCode": 7200,
+            "downloads": null
+        }
+    },
+    {
+        "version": "2.5.3",
+        "codename": "Printer Focus",
+        "releaseDate": "2025-08-18",
+        "status": "end-of-life",
+        "supportEndDate": "2026-01-01",
+        "breaking": false,
+        "changes": {
+            "added": [
+                {
+                    "id": "ADD-019",
+                    "title": "Ghost printer removal",
+                    "description": "Automatically removes offline and error-state printers",
+                    "category": "printers",
+                    "severity": "major",
+                    "issueUrl": null
+                },
+                {
+                    "id": "ADD-020",
+                    "title": "Pending reboot detection",
+                    "description": "Checks multiple registry locations for reboot requirement flags",
+                    "category": "diagnostics",
+                    "severity": "minor",
+                    "issueUrl": null
+                },
+                {
+                    "id": "ADD-021",
+                    "title": "Public IP address display",
+                    "description": "Shows external IP address using api.ipify.org",
+                    "category": "networking",
+                    "severity": "minor",
+                    "issueUrl": null
+                }
+            ],
+            "fixed": [
+                {
+                    "id": "FIX-015",
+                    "title": "SFC scan progress visibility",
+                    "description": "Fixed real-time progress not displaying during System File Checker scans",
+                    "category": "ui",
+                    "severity": "minor",
+                    "issueUrl": null
+                },
+                {
+                    "id": "FIX-016",
+                    "title": "Memory calculation accuracy",
+                    "description": "Corrected percentage calculations in memory usage reports",
+                    "category": "diagnostics",
+                    "severity": "minor",
+                    "issueUrl": null
+                },
+                {
+                    "id": "FIX-017",
+                    "title": "Group policy refresh",
+                    "description": "Ensured group policy update forces immediate refresh",
+                    "category": "domain",
+                    "severity": "minor",
+                    "issueUrl": null
+                }
+            ]
+        },
+        "stats": {
+            "totalFunctions": 35,
+            "linesOfCode": 5200,
+            "downloads": null
+        }
+    },
+    {
+        "version": "2.5.0",
+        "codename": "M365 Integration",
+        "releaseDate": "2025-07-01",
+        "status": "end-of-life",
+        "supportEndDate": "2026-01-01",
+        "breaking": false,
+        "changes": {
+            "added": [
+                {
+                    "id": "ADD-022",
+                    "title": "Outlook profile repair tool",
+                    "description": "Fixes 'Enter Password' prompts and profile corruption",
+                    "category": "m365",
+                    "severity": "major",
+                    "issueUrl": null
+                },
+                {
+                    "id": "ADD-023",
+                    "title": "OneDrive sync reset",
+                    "description": "Resets OneDrive sync engine for stuck files",
+                    "category": "m365",
+                    "severity": "major",
+                    "issueUrl": null
+                },
+                {
+                    "id": "ADD-024",
+                    "title": "Mapped drive diagnostics",
+                    "description": "Tests connectivity to network shares and mapped drives",
+                    "category": "networking",
+                    "severity": "major",
+                    "issueUrl": null
+                },
+                {
+                    "id": "ADD-025",
+                    "title": "Windows Update component reset",
+                    "description": "Repairs Windows Update service components",
+                    "category": "updates",
+                    "severity": "major",
+                    "issueUrl": null
+                }
+            ],
+                    "enhanced": [
+                        {
+                            "id": "ENH-005",
+                            "title": "Improved error messages",
+                            "description": "More descriptive error messages for failed operations",
+                            "category": "usability",
+                            "severity": "minor"
+                        },
+                        {
+                            "id": "ENH-006",
+                            "title": "Fallback methods",
+                            "description": "Added alternative methods for older Windows versions",
+                            "category": "compatibility",
+                            "severity": "minor"
+                        },
+                        {
+                            "id": "ENH-007",
+                            "title": "Service state verification",
+                            "description": "Enhanced validation of service states before operations",
+                            "category": "stability",
+                            "severity": "minor"
+                        }
+                    ]
+                },
+                "stats": {
+                    "totalFunctions": 30,
+                    "linesOfCode": 7000,
+                    "downloads": null
+                }
+            }
+        ]
